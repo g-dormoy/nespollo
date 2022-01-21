@@ -1,0 +1,4 @@
+type Equipment {
+    id: ID!
+    name: String!
+}

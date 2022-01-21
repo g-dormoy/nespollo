@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pw4root
+      MONGO_INITDB_DATABASE: nespollo
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  
+      - mongo
+  nespollo:
+    image: nespollo
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URL=mongodb://nespollo:pw4nespollo@mongo:27017/nespollo
+      - NODE_ENV=development
+      - NODE_PORT=3000
+    volumes:
+      - .:/app
+    depends_on:
+      - mongo

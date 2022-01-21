@@ -1,0 +1,5 @@
+
+type Query {
+    equipment(id: String!): Equipment
+    equipments: [Equipment]
+}
